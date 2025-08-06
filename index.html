@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Beautiful! 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff00ff, #00ffff);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 6rem);
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            text-align: center;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+        }
+
+        .hero-heart {
+            font-size: 4rem;
+            color: #ff0080;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px #ff0080);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            animation: bounce 2s infinite, neonGlow 1.5s ease-in-out infinite alternate;
+            font-size: 1.1rem;
+        }
+
+        /* Floating Elements */
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Content Sections */
+        .content-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            border-top: 2px solid transparent;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00) 1;
+        }
+
+        .content-section:nth-child(even) {
+            background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0a 100%);
+        }
+
+        .content-section:nth-child(odd) {
+            background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
+        }
+
+        .surprise-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid #ff00ff;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 0 30px rgba(255, 0, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .surprise-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 0, 255, 0.6);
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            border: 3px solid #00ffff;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 20px auto;
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+            animation: rotate 10s linear infinite;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit:cover;
+        }
+
+        /* Interactive Buttons */
+        .magic-btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magic-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+        }
+
+        .magic-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Love Note */
+        .love-note {
+            background: linear-gradient(135deg, #ffff00, #ff00ff);
+            color: #000;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-style: italic;
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+            transform: rotate(-2deg);
+            animation: noteWiggle 4s ease-in-out infinite;
+        }
+
+        /* Audio Player */
+        .audio-section {
+            text-align: center;
+        }
+
+        .play-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            border: none;
+            font-size: 2rem;
+            color: #000;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+            margin: 20px;
+        }
+
+        /* Countdown */
+        .countdown {
+            font-size: 3rem;
+            color: #ffff00;
+            text-shadow: 0 0 20px #ffff00;
+            animation: countdownFlash 1s ease-in-out infinite;
+        }
+
+        /* Final Gift */
+        .gift-box {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+            border-radius: 20px;
+            margin: 30px auto;
+            cursor: pointer;
+            position: relative;
+            animation: giftShine 2s ease-in-out infinite;
+        }
+
+        .gift-box::before {
+            content: "🎁";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ff00ff;
+            top: -10px;
+            z-index: 1000;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        /* Animations */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1.1); }
+            75% { transform: scale(1.3); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-30px) translateX(-50%); }
+            60% { transform: translateY(-15px) translateX(-50%); }
+        }
+
+        @keyframes neonGlow {
+            from { box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+            to { box-shadow: 0 0 40px rgba(0, 255, 255, 0.8); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(5deg); }
+            66% { transform: translateY(-10px) rotate(-5deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes noteWiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        @keyframes countdownFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes giftShine {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.5); }
+            50% { box-shadow: 0 0 60px rgba(0, 255, 255, 0.8); }
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .surprise-box {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .photo-frame {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .love-note {
+                font-size: 1.1rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="myAudio" preload="auto">
+    <source src="wish1.m4a" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <audio id="hbdsong" preload="auto">
+    <source src="birthdaysong.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <audio id="hrswish" preload="auto">
+    <source src="wish2.m4a" type="audio/mpeg">
+    Your browser does not support the audio element.
+    </audio>
+
+    <div class="custom-cursor"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Happy Birthday Beautiful!</h1>
+        <div class="hero-heart">💖</div>
+        <button class="scroll-hint" onclick="startJourney()">Start Your Magic Journey!</button>
+        
+        <!-- Floating Emojis -->
+        <div class="floating-emoji" style="top: 20%; left: 10%; animation-delay: 0s;">🎂</div>
+        <div class="floating-emoji" style="top: 30%; right: 15%; animation-delay: 1s;">🎉</div>
+        <div class="floating-emoji" style="top: 60%; left: 20%; animation-delay: 2s;">🌟</div>
+        <div class="floating-emoji" style="top: 70%; right: 10%; animation-delay: 0.5s;">💝</div>
+    </section>
+
+    <!-- Memory Lane -->
+    <section class="content-section">
+        <div class="surprise-box">
+            <h2 style="color: #ff00ff; margin-bottom: 20px;">Our Unforgottabel Moments !! 💕</h2>
+            <div class="photo-frame">
+                <img src="img1.jpg" alt="Our Pics">
+            </div>
+            <button class="magic-btn" onclick="showSurprise(1)">Remember This Day? 💫</button>
+        </div>
+    </section>
+
+    <!-- Love Note Section -->
+    <section class="content-section">
+        <div class="surprise-box">
+            <h2 style="color: #00ffff; margin-bottom: 30px;">A Secret Message Just For You My bbg 💌</h2>
+            <div class="love-note" id="loveNote" style="display: none;">
+                "Every moment with you feels like magic. Meri bbg aap meri duniya ho yar - mahadev ka diya sabse precious tohfa ho aap meri life me 💖 I love you so much yar 😭💖😘 "
+            </div>
+            <button class="magic-btn" onclick="revealLoveNote()">Don't Tap This! Mtlb pyar se kro - dil se likha hai 😉</button>
+        </div>
+    </section>
+
+    <!-- Audio Surprise -->
+    <section class="content-section">
+        <div class="surprise-box audio-section">
+            <h2 style="color: #ffff00; margin-bottom: 30px;">Your Birthday Song Awaits 🎵</h2>
+            <button class="play-btn" onclick="playBirthdaySound()">▶️</button>
+            <p style="margin-top: 20px; font-size: 1.2rem;">Tap to Listen to Something Special!</p>
+            
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="content-section">
+        <div class="surprise-box">
+            <h2 style="color: #ff00ff; margin-bottom: 30px;">Big Surprise Loading... 🚀</h2>
+            <div class="countdown" id="countdown">3</div>
+            <p style="margin-top: 20px; font-size: 1.3rem;">Surprises Till The End!</p>
+            <button class="magic-btn" onclick="startCountdown()">Summon the Countdown! ⏰</button>
+        </div>
+    </section>
+
+    <!-- Interactive Game -->
+    <section class="content-section">
+        <div class="surprise-box">
+            <h2 style="color: #00ffff; margin-bottom: 30px;">Catch the Hearts! 💕</h2>
+            <div style="position: relative; height: 200px; overflow: hidden; border: 2px solid #ff00ff; border-radius: 10px;">
+                <div id="gameArea" style="width: 100%; height: 100%; position: relative;"></div>
+            </div>
+            <p style="margin-top: 15px;">Tap the hearts as they float by!</p>
+            <div style="margin-top: 10px;">Score: <span id="score" style="color: #ffff00; font-weight: bold;">0</span></div>
+            <button class="magic-btn" onclick="startHeartGame()">Start Playing! 🎮</button>
+        </div>
+    </section>
+
+    <!-- Final Gift -->
+    <section class="content-section">
+        <div class="surprise-box">
+            <h2 style="color: #ffff00; margin-bottom: 30px;">Your Final Birthday Gift! 🎁</h2>
+            <div class="gift-box" onclick="openGift()"></div>
+            <div id="finalMessage" style="display: none; margin-top: 30px; font-size: 1.4rem; color: #ff00ff;">
+                <p>🌟 You are the most incredible person I know, so kind, childish and pure hearted.. Just like my own female version 💖 🌟</p>
+                <p style="margin-top: 15px;">This year is going to be AMAZING because you're in it!</p>
+                <p style="margin-top: 15px; color: #00ffff;">Happy Birthday Meri Jaan, Mahadev apko hmesa haste khelte aur muskurate huye rakhe, I love you so much💖</p>
+            </div>
+            <button class="magic-btn" onclick="celebrationFinale()" style="display: none;" id="finaleBtn">Let's Celebrate! 🎉</button>
+        </div>
+    </section>
+
+    <script>
+        // Custom cursor follow
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Smooth scrolling
+        function startJourney() {
+            document.querySelector('.content-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+            createConfetti();
+        }
+
+        // Surprise functions
+        let surpriseCount = 0;
+        function showSurprise(num) {
+            surpriseCount++;
+            alert(`💖 Surprise ${num}! Bacchi ham dono sath me kitne pyare lagte hai n yar, jaise ek dusre ke liye hi bane ho - kitna pyar dikhta h yar hamari aakhon me ek dusre ke liye, bas mahadev jaldi se hame ek kar de 💖,   Scroll down bacchi - bhut kuch banaya hai specially apke liye`);
+            createConfetti();
+        }
+
+        function revealLoveNote() {
+            const note = document.getElementById('loveNote');
+            note.style.display = 'block';
+            note.style.animation = 'pulse 0.5s ease-in-out';
+            createHeartRain();
+        }
+
+        function playBirthdaySound() {
+            // Create a simple birthday melody using Web Audio API
+            /*const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const frequencies = [261.63, 293.66, 329.63, 349.23, 392, 440, 493.88, 523.25]; // C major scale
+            const melody = [0, 0, 1, 0, 3, 2, 0, 0, 1, 0, 4, 3, 0, 0, 7, 5, 3, 2, 1];
+            
+            let currentNote = 0;
+            
+            function playNote() {
+                if (currentNote < melody.length) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(frequencies[melody[currentNote]], audioContext.currentTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.5);
+                    
+                    currentNote++;
+                    setTimeout(playNote, 600);
+                }
+            }
+            
+            playNote();
+            createMusicNotes();*/
+            document.getElementById('hbdsong').play()
+            document.getElementById('hrswish').play()
+        }
+
+        function startCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            let count = 3;
+            
+            const interval = setInterval(() => {
+                count--;
+                countdownEl.textContent = count;
+                createConfetti();
+                
+                if (count <= 0) {
+                    clearInterval(interval);
+                    countdownEl.textContent = '🎉 SURPRISE TIME! (Sorry bbg light na hone ki wajah se ye amazing sa feature nhi bna paya) 🙁 Scroll Down Now ! 🎉';
+                    countdownEl.style.color = '#ffff00';
+                }
+            }, 1000);
+        }
+
+        // Heart catching game
+        let gameActive = false;
+        let score = 0;
+
+        function startHeartGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            score = 0;
+            document.getElementById('score').textContent = score;
+            
+            const gameArea = document.getElementById('gameArea');
+            gameArea.innerHTML = '';
+            
+            const gameInterval = setInterval(() => {
+                if (!gameActive) {
+                    clearInterval(gameInterval);
+                    return;
+                }
+                
+                createFallingHeart();
+            }, 800);
+            
+            setTimeout(() => {
+                gameActive = false;
+                alert(`🎮 Game Over! Your score: ${score} hearts caught! But our love is infinite 💕`);
+            }, 15000);
+        }
+
+        function createFallingHeart() {
+            const gameArea = document.getElementById('gameArea');
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.position = 'absolute';
+            heart.style.fontSize = '2rem';
+            heart.style.left = Math.random() * 90 + '%';
+            heart.style.top = '0px';
+            heart.style.cursor = 'pointer';
+            heart.style.zIndex = '100';
+            
+            heart.addEventListener('click', () => {
+                score++;
+                document.getElementById('score').textContent = score;
+                heart.remove();
+                createMiniConfetti(heart);
+            });
+            
+            gameArea.appendChild(heart);
+            
+            const fallInterval = setInterval(() => {
+                const currentTop = parseInt(heart.style.top);
+                if (currentTop > 200) {
+                    clearInterval(fallInterval);
+                    heart.remove();
+                } else {
+                    heart.style.top = currentTop + 2 + 'px';
+                }
+            }, 50);
+        }
+
+        function openGift() {
+            const giftBox = document.querySelector('.gift-box');
+            const finalMessage = document.getElementById('finalMessage');
+            const finaleBtn = document.getElementById('finaleBtn');
+            
+            giftBox.style.transform = 'scale(0.1)';
+            giftBox.style.opacity = '0';
+            
+            setTimeout(() => {
+                finalMessage.style.display = 'block';
+                finaleBtn.style.display = 'inline-block';
+                createMassiveConfetti();
+            }, 500);
+        }
+
+        function celebrationFinale() {
+            // Create massive celebration
+            createMassiveConfetti();
+            createHeartRain();
+            
+            // Change background to celebration mode
+            document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff)';
+            document.body.style.backgroundSize = '400% 400%';
+            document.body.style.animation = 'gradientShift 2s ease-in-out infinite';
+            
+            setTimeout(() => {
+                alert('🎉💖 HAPPY BIRTHDAY MERI PRATIMA! App meri sabse khas ho meri bacchi ! I love you so so so so sooooo.. much meri jan💖🎉');
+            }, 1000);
+
+
+
+
+
+            
+            document.querySelector('.hero').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+            createConfetti();
+        
+
+            document.getElementById('myAudio').play()
+
+
+
+        }
+
+        // Visual effects
+        function createConfetti() {
+            const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0080', '#80ff00'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 100);
+            }
+        }
+
+        function createMassiveConfetti() {
+            const colors = ['#ff00ff', '#00ffff', '#ffff00', '#ff0080', '#80ff00'];
+            
+            for (let i = 0; i < 200; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.width = Math.random() * 15 + 5 + 'px';
+                    confetti.style.height = confetti.style.width;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 50);
+            }
+        }
+
+        function createHeartRain() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.top = '-50px';
+                    heart.style.fontSize = '2rem';
+                    heart.style.zIndex = '1000';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = 'confettiFall 4s linear infinite';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 200);
+            }
+        }
+
+        function createMusicNotes() {
+            const notes = ['🎵', '🎶', '🎼'];
+            
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const note = document.createElement('div');
+                    note.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+                    note.style.position = 'fixed';
+                    note.style.left = Math.random() * 100 + '%';
+                    note.style.top = '-50px';
+                    note.style.fontSize = '2rem';
+                    note.style.zIndex = '1000';
+                    note.style.pointerEvents = 'none';
+                    note.style.animation = 'float 3s ease-in-out infinite';
+                    document.body.appendChild(note);
+                    
+                    setTimeout(() => note.remove(), 3000);
+                }, i * 300);
+            }
+        }
+
+        function createMiniConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            
+            for (let i = 0; i < 10; i++) {
+                const mini = document.createElement('div');
+                mini.style.position = 'fixed';
+                mini.style.left = rect.left + 'px';
+                mini.style.top = rect.top + 'px';
+                mini.style.width = '5px';
+                mini.style.height = '5px';
+                mini.style.backgroundColor = '#ff00ff';
+                mini.style.borderRadius = '50%';
+                mini.style.zIndex = '1001';
+                mini.style.pointerEvents = 'none';
+                
+                const angle = (Math.PI * 2 * i) / 10;
+                const velocity = 50;
+                const vx = Math.cos(angle) * velocity;
+                const vy = Math.sin(angle) * velocity;
+                
+                document.body.appendChild(mini);
+                
+                let posX = rect.left;
+                let posY = rect.top;
+                
+                const animate = () => {
+                    posX += vx * 0.1;
+                    posY += vy * 0.1;
+                    
+                    mini.style.left = posX + 'px';
+                    mini.style.top = posY + 'px';
+                    
+                    if (posX < -10 || posX > window.innerWidth + 10 || 
+                        posY < -10 || posY > window.innerHeight + 10) {
+                        mini.remove();
+                    } else {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                animate();
+            }
+        }
+
+        // Initialize floating elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add random floating emojis
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'floating-emoji';
+                    emoji.innerHTML = ['💖', '🌟', '✨', '💕', '🎉'][Math.floor(Math.random() * 5)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.top = Math.random() * 100 + '%';
+                    emoji.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => emoji.remove(), 6000);
+                }
+            }, 3000);
+        });
+
+        // Scroll effects
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            // Parallax effect for floating elements
+            document.querySelectorAll('.floating-emoji').forEach(emoji => {
+                const speed = Math.random() * 0.5 + 0.2;
+                emoji.style.transform = `translateY(${rate * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
